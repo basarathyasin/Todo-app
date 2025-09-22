@@ -80,7 +80,24 @@ h3{
     gap: 1rem;
     justify-content: flex-start;
     border: 1px solid rgb(238, 168, 47);
-    align-items: flex-start;
    
     
+}
+l#task-list li {
+    display: flex;                    
+    justify-content: space-between;   
+    align-items: center;              
+    padding: 10px 15px;               
+    border-bottom: 1px solid #eee;    
+    background-color: #111;           
+    border-radius: 8px;               
+}
+
+#task-list li button {
+    background: none;                 /* remove default button styling */
+    border: none;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
 }
