@@ -2,7 +2,9 @@
 let input = document.querySelector("#task-input");
 let addtask = document.querySelector("#add-task-btn");
 let tasks = document.querySelector("#task-list");
-let inputt = document.querySelector("input");
+
+
+
 
 // Load tasks from localStorage on page load
 window.addEventListener("load", function(){
@@ -13,8 +15,7 @@ window.addEventListener("load", function(){
 });
 
 // listening for enter key to submit the form ;
-// if there is input.value then call create task;
-inputt.addEventListener("keydown", function (e){
+input.addEventListener("keydown", function (e){
     if(e.key === "Enter" && input.value !== ""){
         createTask(input.value);
         input.value = "";
@@ -34,7 +35,6 @@ addtask.addEventListener("click", function(){
 function createTask(task, save = true){
     let createTaskEle = document.createElement("li"); // create li element
     createTaskEle.textContent = task; // add text to li
-
     // Create a delete button
     let delBtn = document.createElement("button");
     delBtn.textContent = "❌";
@@ -58,9 +58,20 @@ function savetasks(task){
 function deleteTasks(taskText, liElement){
     // Remove from DOM
     liElement.remove();
-
-    // Remove from localStorage
     let allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
     allTasks = allTasks.filter(t => t !== taskText); // remove matching task
     localStorage.setItem("tasks", JSON.stringify(allTasks));
 }
+
+function updateClock(){
+    let clock = document.querySelector("#clock");
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', { hour12: true }); 
+    clock.textContent = timeString;
+    
+
+
+}
+updateClock();
+
+setInterval(updateClock,1000);
