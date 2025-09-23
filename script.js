@@ -2,19 +2,29 @@
 let input = document.querySelector("#task-input");
 let addtask = document.querySelector("#add-task-btn");
 let tasks = document.querySelector("#task-list");
+let inputt = document.querySelector("input");
 
 // Load tasks from localStorage on page load
 window.addEventListener("load", function(){
     let savedTask = JSON.parse(localStorage.getItem("tasks")) || []; // get tasks or empty array
-    console.dir(savedTask); 
     savedTask.forEach(element => {
         createTask(element, false); // call createTask for each saved task
     });
 });
 
-// Listening for new task and calling createTask to add them to DOM
+// listening for enter key to submit the form ;
+// if there is input.value then call create task;
+inputt.addEventListener("keydown", function (e){
+    if(e.key === "Enter" && input.value !== ""){
+        createTask(input.value);
+        input.value = "";
+        
+    }
+
+})
+// Listening for Add button click
 addtask.addEventListener("click", function(){
-    if(input.value.trim() !== ""){ // check input is not empty
+    if(input.value.trim() !== ""){ 
         createTask(`${input.value}`); // create the new task in DOM
         input.value = ""; 
     } else return; // 
@@ -38,8 +48,6 @@ function createTask(task, save = true){
 
     if(save) savetasks(task); // only save if it's a new task
 }
-
-
 // Save tasks in localStorage
 function savetasks(task){
     let saveTask = JSON.parse(localStorage.getItem("tasks")) || []; // get saved tasks or empty array
